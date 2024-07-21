@@ -43,6 +43,8 @@ spec:
         volumeMounts:
         - mountPath: /var/www/html
           name: {{ .Values.frontend.appName }}
+        - mountPath: /var/www/html
+          name: {{ .Values.frontend.appName }}-pvc
         env:
         - name: API_URL
           value: 'echo-backend.test.svc.cluster.local:5002/api'
