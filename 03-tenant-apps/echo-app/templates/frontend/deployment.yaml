@@ -53,7 +53,7 @@ spec:
         configMap:
           name: {{ .Values.frontend.appName }}-configmap
           defaultMode: 0777
-      - name: {{ .Values.frontend.appName }}
+      - name: {{ .Values.frontend.appName }}-pvc
         persistentVolumeClaim:
-          claimName: {{ .Values.frontend.appName }}
+          claimName: {{ .Values.frontend.appName }}-pvc
 
