@@ -17,9 +17,8 @@ spec:
           properties:
             parameters:
               type: object
-                properties:
-                  clustername:
-                    type: string
+                clustername:
+                  type: string
             # clustername:
             #   type: object
             #   items:
