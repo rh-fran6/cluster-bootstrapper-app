@@ -1,60 +1,17 @@
-apiVersion: templates.gatekeeper.sh/v1beta1
-kind: ConstraintTemplate
+apiVersion: operator.gatekeeper.sh/v1alpha1
+kind: Gatekeeper
 metadata:
-  name: openshiftesomultitenancy
+  name: gatekeeper
 spec:
-  crd:
-    spec:
-      names:
-        kind: OpenshiftEsoMultiTenancy
-      validation:
-        openAPIV3Schema:
-          type: object      
-          properties:
-            clusternames:
-              type: object
-              items:
-                type: string    
-
-  targets:
-    - target: admission.k8s.gatekeeper.sh
-      rego: |
-      
-        package openshiftesomultitenancy 
-
-        violation[{"msg": msg}] {
-              input.review.object.kind == "ExternalSecret"
-              input.review.operation == "CREATE"
-              val := input.review.object.spec.data[_]
-              concatVal := concat( "/", [input.parameters.clustername.name, input.review.object.metadata.namespace])
-              not startswith(val.remoteRef.key, concatVal)
-              msg := sprintf("RemoteRef key '%s' in ExternalSecret object does not match expected path: '%s' .", [val.remoteRef.key, concatVal])
-          }
-
-        violation[{"msg": msg}] {
-            input.review.object.kind == "SecretStore"
-            input.review.operation == "CREATE"
-            msg := "Creating SecretStore resources across the cluster is only allowed from the platform team namespaces."
-        }
-
-        violation[{"msg": msg}] {
-            input.review.object.kind == "ClusterSecretStore"
-            input.review.operation == "CREATE"
-            msg := "Creating ClusterSecretStore resources across the cluster is only allowed from the platform team namespaces."
-        }
----   
-
-apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: OpenshiftEsoMultiTenancy
-metadata:
-  name: secret-as-a-service
-spec:
-  enforcementAction: deny
-  match:
-    kinds:
-      - apiGroups: ["external-secrets.io"]
-        kinds: ["ExternalSecret", "ClusterSecretStore", "SecretStore"]
-    excludedNamespaces: ["platform", "openshift*", "kube*", "default"]
-  parameters:
-    clustername:
-      name: ansible-aro-cluster
+  audit:
+    logLevel: INFO
+    replicas: 1
+  mutatingWebhook: Enabled
+  validatingWebhook: Enabled
+  webhook:
+    admissionEventsInvolvedNamespace: Enabled
+    emitAdmissionEvents: Enabled
+    logLevel: DEBUG
+    logMutations: Enabled
+    mutationAnnotations: Enabled
+    replicas: 1
