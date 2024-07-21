@@ -1,0 +1,11 @@
+---
+frontend:
+  appName: echo-frontend
+
+backend:
+  appName: echo-backend
+
+echoapi:
+  appName: echo-api
+  imageName: quay.io/3scale/echoapi:stable
+  port: 9292

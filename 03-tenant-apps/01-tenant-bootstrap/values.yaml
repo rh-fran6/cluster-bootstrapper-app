@@ -12,11 +12,3 @@ applications:
     applicationNamespace: opensift-gitops
     appPath: 02-tenantApps/01-mcg-mc-gravity-calculator
     # imageName: test-image-name
-
-## Projects
-argocdInstances:
-  - name: opeshift-gitops
-    projects:
-    - name: tenant
-      sourceRepos: 
-      - "'*'"

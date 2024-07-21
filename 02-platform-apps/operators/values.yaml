@@ -15,3 +15,11 @@ operators:
     source: community-operators 
     sourceNamespace: openshift-marketplace
     operatorName: external-secrets-operator
+  
+  - name: opa-gatekeeper
+    namespace: openshift-operators
+    channel: stable
+    installPlanApproval: Automatic
+    source: redhat-operators 
+    sourceNamespace: openshift-marketplace
+    operatorName: gatekeeper-operator-product

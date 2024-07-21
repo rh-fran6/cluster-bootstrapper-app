@@ -1,8 +1,0 @@
-
-global:
-  clusterDomain: apps.dd-aro.eastus.aroapp.io
-  environment: dev
-  imageRegistry: image-registry.openshift-image-registry.svc:5000/ised-registry
-  applicationName: mcg-mc-gravity-calculator
-  appNamespace: sbms-mc-mcg
-  routeNamespace: sbms-mc-mcg

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.echoapi.appName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.echoapi.appName }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.echoapi.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.echoapi.appName }}
+          image: {{ .Values.echoapi.imageName }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.echoapi.port }}
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /test/200
+              port: {{ .Values.echoapi.port }}
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+          ports:
+            - containerPort: {{ .Values.echoapi.port }}
+              protocol: TCP
