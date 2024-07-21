@@ -9,7 +9,7 @@ applications:
     branch: main
     argocdNamespace: openshift-gitops
     applicationProject: default
-    applicationNamespace: opensift-gitops
+    applicationNamespace: openshift-gitops
     appPath: 02-platform-apps/platform-bootstrap
     # imageName: test-image-name
 
@@ -18,12 +18,12 @@ applications:
     branch: main
     argocdNamespace: openshift-gitops
     applicationProject: default
-    applicationNamespace: opensift-gitops
+    applicationNamespace: openshift-gitops
     appPath: 02-infra-apps/tenant-bootstrap
 
 ## Projects
 argocdInstances:
-  - name: opeshift-gitops
+  - name: openshift-gitops
     projects:
     - name: tenant
       sourceRepos: 
