@@ -8,6 +8,7 @@ spec:
       names:
         kind: OpenshiftEsoMultiTenancy
       validation:
+        legacySchema: false
         openAPIV3Schema:
           type: object      
           properties:
