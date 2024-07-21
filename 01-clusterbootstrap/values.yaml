@@ -19,7 +19,7 @@ applications:
     argocdNamespace: openshift-gitops
     applicationProject: default
     applicationNamespace: openshift-gitops
-    appPath: 03-infra-apps/01-tenant-bootstrap
+    appPath: 03-tenant-apps/01-tenant-bootstrap
 
 ## Projects
 argocdInstances:
