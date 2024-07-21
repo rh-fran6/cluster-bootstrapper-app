@@ -8,6 +8,6 @@ applications:
     branch: main
     argocdNamespace: openshift-gitops
     applicationProject: default
-    applicationNamespace: opensift-gitops
+    applicationNamespace: echo-app
     appPath: 03-tenant-apps/echo-app
     # imageName: test-image-name
