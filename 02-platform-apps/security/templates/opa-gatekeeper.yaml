@@ -1,6 +1,9 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "1"
   name: openshiftesomultitenancy
 spec:
   crd:
@@ -50,7 +53,7 @@ kind: OpenshiftEsoMultiTenancy
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
   name: secret-as-a-service
 spec:
   enforcementAction: deny
