@@ -1,0 +1,22 @@
+
+global:
+  openshiftGitopsNamespace: openshift-gitops
+
+applications:
+  ##  Applications in platform-admin namespace
+  - appName: platform-admin
+    repoUrl: https://scm.ised-isde.canada.ca/scm/is/boilerplate-demo.git
+    branch: main
+    argocdNamespace: openshift-gitops
+    applicationProject: default
+    applicationNamespace: opensift-gitops
+    appPath: 02-tenantApps/01-mcg-mc-gravity-calculator
+    # imageName: test-image-name
+
+## Projects
+argocdInstances:
+  - name: opeshift-gitops
+    projects:
+    - name: tenant
+      sourceRepos: 
+      - "'*'"

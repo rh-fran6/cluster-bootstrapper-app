@@ -1,0 +1,34 @@
+## ArgoCD Parameters ##
+argocdInstances:
+  - name: platform-admin
+    defaultRbacPolicy: role:none      
+    rbacScopes: '[groups]'
+    projects:
+    - name: networking
+      sourceRepos: 
+      - git@github.com:rh-fran6/pipelines-demo.git
+    - name: devops
+      sourceRepos: 
+      - git@github.com:rh-fran6/pipelines-demo.git
+    - name: operators
+      sourceRepos: 
+      - git@github.com:rh-fran6/pipelines-demo.git
+    - name: security
+      sourceRepos: 
+      - git@github.com:rh-fran6/pipelines-demo.git   
+
+  - name: tenant-apps
+    defaultRbacPolicy: role:none
+    rbacScopes: '[groups]'
+    projects:
+    - name: prod
+      sourceRepos: 
+      - git@github.com:rh-fran6/pipelines-demo.git
+    - name: dev
+      sourceRepos: 
+      - "'*'"
+
+
+global:
+  openshiftGitopsNamespace: openshift-gitops
+  clusterDomain: apps.dd-aro.eastus.aroapp.io

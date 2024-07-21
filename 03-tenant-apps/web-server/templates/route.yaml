@@ -1,0 +1,24 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  labels:
+    app: {{ .Values.global.applicationName }}
+    app.kubernetes.io/component: {{ .Values.global.applicationName }}
+    app.kubernetes.io/instance: {{ .Values.global.applicationName }}
+    app.kubernetes.io/part-of: {{ .Values.global.applicationName }}-app
+  name: {{ .Values.global.applicationName }}
+  namespace: {{ .Values.global.routeNamespace }}
+spec:
+  host: {{ .Values.global.applicationName }}-{{ .Values.global.appNamespace }}.{{ .Values.global.clusterDomain }}
+  port:
+    targetPort: 8080-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ .Values.global.applicationName }}
+    weight: 100
+  wildcardPolicy: None

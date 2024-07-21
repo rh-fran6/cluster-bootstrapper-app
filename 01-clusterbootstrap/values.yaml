@@ -1,0 +1,30 @@
+
+global:
+  openshiftGitopsNamespace: openshift-gitops
+
+applications:
+  ##  Applications in platform-admin namespace
+  - appName: platform-apps
+    repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
+    branch: main
+    argocdNamespace: openshift-gitops
+    applicationProject: default
+    applicationNamespace: opensift-gitops
+    appPath: 02-platform-apps/platform-bootstrap
+    # imageName: test-image-name
+
+  - appName: tenant-apps
+    repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
+    branch: main
+    argocdNamespace: openshift-gitops
+    applicationProject: default
+    applicationNamespace: opensift-gitops
+    appPath: 02-infra-apps/tenant-bootstrap
+
+## Projects
+argocdInstances:
+  - name: opeshift-gitops
+    projects:
+    - name: tenant
+      sourceRepos: 
+      - "'*'"
