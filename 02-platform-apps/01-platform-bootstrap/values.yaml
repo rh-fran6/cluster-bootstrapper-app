@@ -10,7 +10,7 @@ applications:
     argocdNamespace: openshift-gitops
     applicationProject: default
     applicationNamespace: opensift-gitops
-    appPath: cluster-bootstrap-app/02-platform-apps/devops
+    appPath: 02-platform-apps/devops
   
   - appName: infra-config
     repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
@@ -18,7 +18,7 @@ applications:
     argocdNamespace: openshift-gitops
     applicationProject: default
     applicationNamespace: opensift-gitops
-    appPath: cluster-bootstrap-app/02-platform-apps/infra-config
+    appPath: 02-platform-apps/infra-config
   
   - appName: networking
     repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
@@ -26,7 +26,7 @@ applications:
     argocdNamespace: openshift-gitops
     applicationProject: default
     applicationNamespace: opensift-gitops
-    appPath: cluster-bootstrap-app/02-platform-apps/networking
+    appPath: 02-platform-apps/networking
   
   - appName: operators
     repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
@@ -34,7 +34,7 @@ applications:
     argocdNamespace: openshift-gitops
     applicationProject: default
     applicationNamespace: opensift-gitops
-    appPath: cluster-bootstrap-app/02-platform-apps/operators
+    appPath: 02-platform-apps/operators
   
   - appName: operator-instances
     repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
@@ -42,7 +42,7 @@ applications:
     argocdNamespace: openshift-gitops
     applicationProject: default
     applicationNamespace: opensift-gitops
-    appPath: cluster-bootstrap-app/02-platform-apps/operator-instances
+    appPath: 02-platform-apps/operator-instances
 
   - appName: security
     repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
@@ -50,4 +50,4 @@ applications:
     argocdNamespace: openshift-gitops
     applicationProject: default
     applicationNamespace: opensift-gitops
-    appPath: cluster-bootstrap-app/02-platform-apps/security
+    appPath: 02-platform-apps/security
