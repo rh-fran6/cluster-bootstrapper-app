@@ -15,10 +15,15 @@ spec:
         openAPIV3Schema:
           type: object      
           properties:
-            clusternames:
+            parameters:
               type: object
-              items:
-                type: string    
+                properties:
+                  clustername:
+                    type: string
+            # clustername:
+            #   type: object
+            #   items:
+            #     type: string    
 
   targets:
     - target: admission.k8s.gatekeeper.sh
@@ -63,5 +68,4 @@ spec:
         kinds: ["ExternalSecret", "ClusterSecretStore", "SecretStore"]
     excludedNamespaces: ["platform", "openshift*", "kube*", "default"]
   parameters:
-    clustername:
-      name: ansible-aro-cluster
+    clustername: ansible-aro-cluster
