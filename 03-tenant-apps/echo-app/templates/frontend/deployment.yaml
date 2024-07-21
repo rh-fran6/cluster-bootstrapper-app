@@ -41,8 +41,8 @@ spec:
           name: http
           protocol: TCP
         volumeMounts:
-        - mountPath: /var/www/html
-          name: {{ .Values.frontend.appName }}
+        - mountPath: /tmp/files
+          name: {{ .Values.frontend.appName }}-configmap
         - mountPath: /var/www/html
           name: {{ .Values.frontend.appName }}-pvc
         env:
