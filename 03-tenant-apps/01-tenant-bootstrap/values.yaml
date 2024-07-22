@@ -3,11 +3,11 @@ global:
   openshiftGitopsNamespace: openshift-gitops
 
 applications:
-  # - appName: acho-api-app
-  #   repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
-  #   branch: main
-  #   argocdNamespace: openshift-gitops
-  #   applicationProject: default
-  #   applicationNamespace: echo-app
-  #   appPath: 03-tenant-apps/echo-app
+  - appName: acho-api-app
+    repoUrl: https://github.com/rh-fran6/cluster-bootstrapper-app.git
+    branch: main
+    argocdNamespace: openshift-gitops
+    applicationProject: default
+    applicationNamespace: echo-app
+    appPath: 03-tenant-apps/echo-app
     # imageName: test-image-name
