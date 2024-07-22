@@ -16,23 +16,23 @@ spec:
         deploymentconfig: {{ .Values.frontend.appName }}
       name: {{ .Values.frontend.appName }}
     spec:
-      initContainers:
-        - name: init-copy-config
-          image: registry.access.redhat.com/ubi8/httpd-24:1-226
-          command: 
-            - 'sh' 
-            - '-c'
-            - |
-              # echo "window.env = {" > /var/www/html/config.js
-              # echo "  API_URL: 'http://${API_URL}'," >> /var/www/html/config.js
-              # echo "};" >> /var/www/html/config.js
-              ls /var/www/html/
-              cp /tmp/files/* /var/www/html/
-          volumeMounts:
-            - name: {{ .Values.frontend.appName }}-configmap
-              mountPath: /tmp/files
-            - name: {{ .Values.frontend.appName }}-pvc
-              mountPath: /var/www/html
+      # initContainers:
+      #   - name: init-copy-config
+      #     image: registry.access.redhat.com/ubi8/httpd-24:1-226
+      #     command: 
+      #       - 'sh' 
+      #       - '-c'
+      #       - |
+      #         # echo "window.env = {" > /var/www/html/config.js
+      #         # echo "  API_URL: 'http://${API_URL}'," >> /var/www/html/config.js
+      #         # echo "};" >> /var/www/html/config.js
+      #         ls /var/www/html/
+      #         cp /tmp/files/* /var/www/html/
+      #     volumeMounts:
+      #       - name: {{ .Values.frontend.appName }}-configmap
+      #         mountPath: /tmp/files
+      #       - name: {{ .Values.frontend.appName }}-pvc
+      #         mountPath: /var/www/html
       containers:
       - name: apache
         image: registry.access.redhat.com/ubi8/httpd-24:1-226
@@ -41,21 +41,30 @@ spec:
           name: http
           protocol: TCP
         volumeMounts:
-        - mountPath: /tmp/files
-          name: {{ .Values.frontend.appName }}-configmap
+        # - mountPath: /tmp/files
+        #   name: {{ .Values.frontend.appName }}-configmap
         - mountPath: /var/www/html
-          name: {{ .Values.frontend.appName }}-pvc
+          name: {{ .Values.frontend.appName }}-configmap
         env:
         - name: API_URL
           value: 'echo-backend.test.svc.cluster.local:5002/api'
-        command: ["/bin/bash"]
-        args: ["/var/www/html/entrypoint.sh"]
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
       volumes:
       - name: {{ .Values.frontend.appName }}-configmap
         configMap:
           name: {{ .Values.frontend.appName }}-configmap
           defaultMode: 0777
-      - name: {{ .Values.frontend.appName }}-pvc
-        persistentVolumeClaim:
-          claimName: {{ .Values.frontend.appName }}-pvc
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+          items:
+            - key: nginx.conf
+              path: nginx.conf
 
