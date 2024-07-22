@@ -15,23 +15,6 @@ spec:
         app: {{ .Values.frontend.appName }}
         tier: proxy
     spec:
-      # initContainers:
-      #   - name: init-copy-config
-      #     image: registry.access.redhat.com/ubi8/httpd-24:1-226
-      #     command: 
-      #       - 'sh' 
-      #       - '-c'
-      #       - |
-      #         # echo "window.env = {" > /var/www/html/config.js
-      #         # echo "  API_URL: 'http://${API_URL}'," >> /var/www/html/config.js
-      #         # echo "};" >> /var/www/html/config.js
-      #         ls /var/www/html/
-      #         cp /tmp/files/* /var/www/html/
-      #     volumeMounts:
-      #       - name: {{ .Values.frontend.appName }}-configmap
-      #         mountPath: /tmp/files
-      #       - name: {{ .Values.frontend.appName }}-pvc
-      #         mountPath: /var/www/html
       containers:
       - name: apache
         image: registry.access.redhat.com/ubi8/httpd-24:1-226
@@ -40,17 +23,15 @@ spec:
           name: http
           protocol: TCP
         volumeMounts:
-        # - mountPath: /tmp/files
-        #   name: {{ .Values.frontend.appName }}-configmap
         - mountPath: /var/www/html
           name: {{ .Values.frontend.appName }}-configmap
         env:
         - name: API_URL
           value: 'echo-backend.test.svc.cluster.local:5002/api'
       - name: proxy
-        image: quay.io/fanyaegb/echo-frontend-proxy:0.1
+        image: {{ .Values.frontendProxy.imageName }}
         ports:
-        - containerPort: 80
+        - containerPort: {{ .Values.frontendProxy.port }}
         env:
         - name: API_URL
           value: 'http://echo-backend.test.svc.cluster.local:5002'
