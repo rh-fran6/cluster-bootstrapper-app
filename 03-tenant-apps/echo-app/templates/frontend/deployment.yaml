@@ -2,19 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    application: {{ .Values.frontend.appName }}
+    app: {{ .Values.frontend.appName }}
   name: {{ .Values.frontend.appName }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      deploymentconfig: {{ .Values.frontend.appName }}
+      app: {{ .Values.frontend.appName }}
   template:
     metadata:
       labels:
         app: {{ .Values.frontend.appName }}
-        deploymentconfig: {{ .Values.frontend.appName }}
-      name: {{ .Values.frontend.appName }}
+        tier: proxy
     spec:
       # initContainers:
       #   - name: init-copy-config
@@ -48,23 +47,16 @@ spec:
         env:
         - name: API_URL
           value: 'echo-backend.test.svc.cluster.local:5002/api'
-      - name: nginx
-        image: nginx:latest
+      - name: proxy
+        image: quay.io/fanyaegb/echo-frontend-proxy:0.1
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: nginx-config
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
+        env:
+        - name: API_URL
+          value: 'http://echo-backend.test.svc.cluster.local:5002'
       volumes:
       - name: {{ .Values.frontend.appName }}-configmap
         configMap:
           name: {{ .Values.frontend.appName }}-configmap
           defaultMode: 0777
-      - name: nginx-config
-        configMap:
-          name: nginx-config
-          items:
-            - key: nginx.conf
-              path: nginx.conf
 
