@@ -12,5 +12,5 @@ echoapi:
 
 frontendProxy:
   appName: frontend-proxy
-  port: 8080
+  port: 8081
   imageName: quay.io/fanyaegb/echo-frontend-proxy:0.1
