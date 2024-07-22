@@ -77,7 +77,7 @@ data:
         </div>
     
         <script>
-            # const url = window.env.API_URL || `http://127.0.0.1:5000/api`;
+            const url = window.env.API_URL || `http://127.0.0.1:5000/api`;
 
             console.log(window.env)
                
@@ -103,26 +103,32 @@ data:
     
     </html>
 
-#   "entrypoint.sh": |-
-#     #!/bin/bash
-#     mkdir -p /tmp/config
+  "config.js": |-
+   window.env = {
+     API_URL: http://echo-backend.test.svc.cluster.local:5002
+   };
     
-#     # Write the environment variables to config.js
-#     echo "window.env = {" > /var/www/html/config.js
-#     echo "  API_URL: 'http://${API_URL}'," >> /var/www/html/config.js
-#     echo "};" >> /var/www/html/config.js
+
+  "entrypoint.sh": |-
+    #!/bin/bash
+    # mkdir -p /tmp/config
     
-#     # Copy the index.html to the writable directory
-#     # cp /var/www/html/index.html /tmp/config/index.html
-
-#     # cp /tmp/files/* /var/www/html
-
-
-#     # cp /tmp/config/config.js /var/www/html/config.js
+    # Write the environment variables to config.js
+    # echo "window.env = {" > /var/www/html/config.js
+    # echo "  API_URL: 'http://${API_URL}'," >> /var/www/html/config.js
+    # echo "};" >> /var/www/html/config.js
     
-#     # Start the HTTP server to serve from /tmp/config
-#     # exec httpd -DFOREGROUND -d /tmp/config
-#     run-httpd
+    # Copy the index.html to the writable directory
+    # cp /var/www/html/index.html /tmp/config/index.html
+
+    # cp /tmp/files/* /var/www/html
+
+
+    # cp /tmp/config/config.js /var/www/html/config.js
+    
+    # Start the HTTP server to serve from /tmp/config
+    # exec httpd -DFOREGROUND -d /tmp/config
+    # run-httpd
 
 
 
