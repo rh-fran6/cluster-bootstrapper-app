@@ -10,6 +10,6 @@ echoapi:
   imageName: quay.io/3scale/echoapi:stable
   port: 9292
 
-frontend-proxy:
+frontendProxy:
   appName: frontend-proxy
   port: 80
