@@ -105,11 +105,11 @@ data:
 
   "config.js": |-
    window.env = {
-     API_URL: http://echo-backend.test.svc.cluster.local:5002
+     API_URL: http://echo-backend.test.svc.cluster.local:5002,
    };
     
 
-  "entrypoint.sh": |-
+#   "entrypoint.sh": |-
     #!/bin/bash
     # mkdir -p /tmp/config
     
