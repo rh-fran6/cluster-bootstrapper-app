@@ -18,3 +18,5 @@ spec:
     # deploymentconfig: {{ .Values.frontend.appName }}
   # sessionAffinity: None
   # type: ClusterIP
+
+
